@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class Facebook extends Component {
   state = {
@@ -7,7 +8,13 @@ export default class Facebook extends Component {
     userID: '',
     name: '',
     email: '',
-    picture: ''
+    picture: '',
+    modal: true
+  }
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
   }
 
   componentClicked = () => {
@@ -34,7 +41,7 @@ export default class Facebook extends Component {
       fbContent = (
         <div style={{
           width: '400px',
-          margin: 'auto',
+          margin: '0 auto',
           background: '#f4f4f4',
           padding: '20px'
         }}>
@@ -45,18 +52,22 @@ export default class Facebook extends Component {
       );
     } else {
         fbContent = (
-           <FacebookLogin
-            appId = {process.env.REACT_APP_FB_ID}
-            autoLoad={true}
-            fields="name,email,picture"
-            onClick={this.componentClicked}
-            callback={this.responseFacebook} />
+          <Modal isOpen = {this.state.modal} className={this.props.className}>
+            <ModalBody>
+              <FacebookLogin
+                appId = {process.env.REACT_APP_FB_ID}
+                autoLoad={true}
+                fields="name,email,picture"
+                onClick={this.componentClicked}
+                callback={this.responseFacebook} />
+            </ModalBody>
+          </Modal>
         )
     }
 
     return (
       <div>
-        {fbContent}
+            {fbContent}
       </div>
     )
   }
