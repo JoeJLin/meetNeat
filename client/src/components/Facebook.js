@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 
 export default class Facebook extends Component {
-  state = {
-    isLoggedIn: false,
-    userID: '',
-    name: '',
-    email: '',
-    picture: ''
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: false,
+      userID: '',
+      name: '',
+      email: '',
+      picture: ''
+    }
   }
+  
 
   componentClicked = () => {
     console.log("Clicked")
@@ -16,7 +21,7 @@ export default class Facebook extends Component {
 
   responseFacebook = response => {
     console.log(response);
-
+    this.props.updateTarget(response);
     this.setState({
       isLoggedIn: true,
       userID: response.id,

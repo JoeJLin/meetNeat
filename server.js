@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const yelp = require("yelp-fusion");
 require("dotenv").config();
 
 // const items = require("./routes/api/items");
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -19,6 +21,7 @@ mongoose.connect(mongoURI, () => {
 
 // use routes
 // app.use("/api/items", items);
+app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 
@@ -30,3 +33,19 @@ app.listen(port, () => {
 app.get('/', (req, res) => {
   res.send('hello')
 })
+
+
+
+const client = yelp.client(process.env.YELP_KEY);
+
+// client
+//   .search({
+//     term: "Sushi",
+//     location: "san francisco, ca"
+//   })
+//   .then(response => {
+//     console.log(response.jsonBody.businesses);
+//   })
+//   .catch(e => {
+//     console.log(e);
+//   });
