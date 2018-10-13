@@ -7,6 +7,7 @@ import {
   Card,
   CardBody,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default class Facebook extends Component {
   constructor(props) {
@@ -47,6 +48,9 @@ export default class Facebook extends Component {
       fbContent = (
         <div >
           <h1>Welcome {this.state.name}!!</h1>
+          <Link to="/create">
+            create
+          </Link>
         </div>
       );
     } else {
