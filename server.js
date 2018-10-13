@@ -4,13 +4,25 @@ const bodyParser = require("body-parser");
 const yelp = require("yelp-fusion");
 require("dotenv").config();
 
-// const items = require("./routes/api/items");
+const items = require("./routes/api/items");
 const users = require("./routes/api/users");
 
 const app = express();
 
 // body parser middleware
 app.use(bodyParser.json());
+
+var allowCrossDomain = function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
+};
+
+
+  app.use(allowCrossDomain);
+  //some other code
+
 
 // DB config
 const mongoURI = process.env.DB_PATH;
@@ -20,7 +32,7 @@ mongoose.connect(mongoURI, () => {
 });
 
 // use routes
-// app.use("/api/items", items);
+app.use("/api/items", items);
 app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
@@ -36,16 +48,3 @@ app.get('/', (req, res) => {
 
 
 
-const client = yelp.client(process.env.YELP_KEY);
-
-// client
-//   .search({
-//     term: "Sushi",
-//     location: "san francisco, ca"
-//   })
-//   .then(response => {
-//     console.log(response.jsonBody.businesses);
-//   })
-//   .catch(e => {
-//     console.log(e);
-//   });

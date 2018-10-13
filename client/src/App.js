@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Switch, Route, withRouter, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import './App.css';
 
 import Facebook from './components/Facebook';

@@ -8,9 +8,10 @@
 }
 
 body {
-  background-image: url('./images/background.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
+  background: url('./images/background.jpg') no-repeat center center fixed;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+
 }
 
 .App-logo {
