@@ -13,15 +13,18 @@ import {
 
 export default class Create extends Component {
   state = {
-    term: 'Sushi',
+    term: '',
     city: 'New York, NY',
     results: []
   }
 
+  // componentDidMount() {
+  //   this.fetchAPI();
+  // }
+
   componentDidMount() {
-    
     axios
-      .post('http://localhost:5000/api/items', this.state.term)
+      .post('http://localhost:5000/api/items', {term: this.state.term})
       .then(response => {
         console.log(response);
         return response.data
@@ -31,21 +34,23 @@ export default class Create extends Component {
           results: data
         }, () => console.log(this.state))
       })
-
+    return true;
   }
 
-  // fetchAPI = () => {
-  //   axios
-  //     .post('/api/items', this.state.term, this.state.city)
-  //     .then(res => {
-  //       return res.json()
-  //     })
-  //     .then(data => {
-  //       this.setState({
-  //         results: data
-  //       })
-  //     })
-  // }
+  fetchAPI = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:5000/api/items', {term: this.state.term})
+      .then(res => {
+        return res.data
+      })
+      .then(data => {
+        this.setState({
+          results: data
+        })
+        console.log(this.state.results)
+      })
+  }
 
   render() {
     return <div>
@@ -54,16 +59,19 @@ export default class Create extends Component {
             <GMap />
           </Col>
           <Col sm="6" m="6" l="6">
-            <SearchBar />
+            <SearchBar 
+              updateTarget={event => this.setState({term: event.target.value})}
+              enterTerm={e => this.fetchAPI(e)}
+            />
           </Col>
         </Row>
         <Row>
           
-            {this.state.results.map((restaurant, key) => {
-              return (
-                <SearchResults restaurant={restaurant} key={key}/>
-              );   
-            })}
+        {this.state.results.map((restaurant, key) => {
+          return (
+            <SearchResults restaurant={restaurant} key={key} />
+          );   
+        })}
           
         </Row>
       </div>;

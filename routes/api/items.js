@@ -5,6 +5,7 @@ require("dotenv").config();
 const client = yelp.client(process.env.YELP_KEY);
 
 router.post('/', (req, res) => {
+  console.log(req.body.term);
   client
   .search({
     term: req.body.term,

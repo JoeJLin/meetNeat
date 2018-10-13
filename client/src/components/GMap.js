@@ -23,7 +23,7 @@ class GMap extends React.Component {
   }
   render() {
     return (
-      <div class="container" style={{height: '50vh', width: '100%'}}>
+      <div className="container" style={{height: '50vh', width: '100%'}}>
         <GoogleMapReact
           bootstrapURLkeys={{key:process.env.REACT_APP_GOOGLE_MAP}}
           defaultCenter={this.props.initialCenter}
@@ -35,8 +35,6 @@ class GMap extends React.Component {
   }
 }
 
-export default GMap;
-
 GMap.defaultProps = {
   zoom: 0,
   initialCenter: {
@@ -46,3 +44,7 @@ GMap.defaultProps = {
   centerAroundCurrentLocation: false,
   visible: true
 };
+
+export default GMap;
+
+
