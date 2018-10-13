@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+} from "reactstrap";
 
 export default class Facebook extends Component {
   constructor(props) {
@@ -11,7 +17,8 @@ export default class Facebook extends Component {
       userID: '',
       name: '',
       email: '',
-      picture: ''
+      picture: '',
+      modal: true
     }
   }
   
@@ -38,35 +45,37 @@ export default class Facebook extends Component {
 
     if(this.state.isLoggedIn) {
       fbContent = (
-        <div style={{
-          width: '400px',
-          margin: '0 auto',
-          background: '#f4f4f4',
-          padding: '20px'
-        }}>
-          <img src={this.state.picture} alt={this.state.name} />
-          <h2>Welcome {this.state.name}</h2>
-
+        <div >
+          <h1>Welcome {this.state.name}!!</h1>
         </div>
       );
     } else {
         fbContent = (
-          <Modal isOpen = {this.state.modal} className={this.props.className}>
-            <ModalBody>
-              <FacebookLogin
+          <Card>
+              <h1 style={{margin:"10px"}}>Welcome!!</h1>
+              <h5 style={{margin:"10px"}}>Please Sign In!!</h5>
+              <CardBody>
+                <FacebookLogin
                 appId = {process.env.REACT_APP_FB_ID}
                 autoLoad={true}
                 fields="name,email,picture"
                 onClick={this.componentClicked}
                 callback={this.responseFacebook} />
-            </ModalBody>
-          </Modal>
+              </CardBody>
+          </Card>
         )
     }
 
     return (
       <div>
+      <Container>
+        <Row>
+          <Col sm="5" m="5" l="4" className="center">
             {fbContent}
+          </Col>
+        </Row>
+      </Container>
+            
       </div>
     )
   }
