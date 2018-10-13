@@ -3,19 +3,18 @@ import FacebookLogin from 'react-facebook-login';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class Facebook extends Component {
-  state = {
-    isLoggedIn: false,
-    userID: '',
-    name: '',
-    email: '',
-    picture: '',
-    modal: true
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: false,
+      userID: '',
+      name: '',
+      email: '',
+      picture: ''
+    }
   }
-  toggle() {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
+  
 
   componentClicked = () => {
     console.log("Clicked")
@@ -23,7 +22,7 @@ export default class Facebook extends Component {
 
   responseFacebook = response => {
     console.log(response);
-
+    this.props.updateTarget(response);
     this.setState({
       isLoggedIn: true,
       userID: response.id,

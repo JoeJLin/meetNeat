@@ -11,34 +11,36 @@ import {
 } from 'reactstrap';
 
 class AppNavBar extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       isOpen: false
+    }
   }
+
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
   render() {
-    return (
-      <div>
-        <Navbar color="danger" dark expand="sm" className="mb=5">
+    return <div>
+        <Navbar color="dark" dark expand="sm" className="mb=5">
           <Container>
             <NavbarBrand href="/">meetNeat</NavbarBrand>
-            <NavbarToggler onClick={this.toggle}/>
+            <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="">
-                    Stuffs
+                  <NavLink href="" className="navLink">
+                    <img src={this.props.img} alt={this.props.username} />
                   </NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
           </Container>
         </Navbar>
-      </div>
-    );
+      </div>;
   }
 }
 export default AppNavBar;
